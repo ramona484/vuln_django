@@ -11,6 +11,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       
+      - name: trufflehog-actions-scan
+        uses: edplato/trufflehog-actions-scan@master  
         
       - name: Build an image from Dockerfile
         run: |
