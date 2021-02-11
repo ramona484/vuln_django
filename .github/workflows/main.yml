@@ -33,7 +33,7 @@ jobs:
       - name: Dockle Scan
         uses: hands-lab/dockle-action@v1
         with:
-          image: vuln-django
+          image: docker.io/my-organization/my-app:${{ github.sha }}
         
       -
         name: Login to DockerHub
