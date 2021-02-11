@@ -89,7 +89,7 @@ workflows:
       - container-scan:
           filters:
             branches:
-              only: main
+              only: master
       - ggshield/scan:
           name: ggshield-scan
           base_revision: << pipeline.git.base_revision >>
@@ -97,15 +97,15 @@ workflows:
       - dockle:
           filters:
             branches:
-              only: main
+              only: master
       - build:
           filters:
             branches:
-              only: main
+              only: master
       - publish-latest:
           requires:
             - build
           filters:
             branches:
-              only: main
+              only: master
 
