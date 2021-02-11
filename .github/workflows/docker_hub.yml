@@ -8,20 +8,24 @@ jobs:
   path-context:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+
+      - name: Checkout
         uses: actions/checkout@v2
-              
-      - uses: brpaz/hadolint-action@v1.2.1
-        with:
-          dockerfile: Dockerfile
-      
+
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_AUTH_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                   
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: 'CRITICAL'
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
