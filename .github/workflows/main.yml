@@ -10,6 +10,10 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v2
+        
+      - name: Build an image from Dockerfile
+        run: |
+          docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
@@ -29,7 +33,7 @@ jobs:
       - name: Dockle Scan
         uses: hands-lab/dockle-action@v1
         with:
-          image: hello-world
+          image: vuln-django
         
       -
         name: Login to DockerHub
